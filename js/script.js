@@ -135,4 +135,29 @@
 
     $container.removeClass('mobile-nav-on');
   });
+
+  // Reading progress bar
+  var $progressBar = $('#reading-progress-bar');
+  var $backToTop = $('#back-to-top');
+  var updateOnScroll = function(){
+    var scrollTop = $(window).scrollTop();
+    var docHeight = $(document).height() - $(window).height();
+    var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    $progressBar.css('width', percent + '%');
+
+    if (scrollTop > 200) {
+      $backToTop.addClass('on');
+    } else {
+      $backToTop.removeClass('on');
+    }
+  };
+
+  $(window).on('scroll resize', updateOnScroll);
+  updateOnScroll();
+
+  // Back to top (smooth)
+  $backToTop.on('click', function(e){
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, 500);
+  });
 })(jQuery);
